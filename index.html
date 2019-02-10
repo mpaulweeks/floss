@@ -250,11 +250,11 @@
       });
     }
 
+    const audio = new Audio('party.mp3');
     async function init(){
       resize(5);
       setDefault();
 
-      const audio = new Audio('party.mp3');
       audio.play();
 
       document.addEventListener('keydown', evt => {
