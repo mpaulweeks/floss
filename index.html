@@ -59,7 +59,7 @@
       content: '';
       float: left;
       padding-top: 100%;
-      padding-left: 100%;
+      padding-left: 50%; /* i dont understand why this is necessary but it is :( */
     }
     .cell[data-reverse="true"] {
       animation-direction: reverse;
@@ -127,7 +127,7 @@
   </div>
   <button id="init"> START </button>
   <h3>
-    press H/V keys to make them move
+    press number keys (1-9) to make them dance
   </h3>
   <h3>
     press +/- keys to zoom in/out
@@ -206,13 +206,16 @@
       audio.play();
 
       document.addEventListener('keydown', evt => {
-        console.log(evt);
         switch (evt.code) {
           case 'Digit1':
+          case 'KeyD':
+            setDefault();
+            break;
+          case 'Digit2':
           case 'KeyH':
             setHorizontal();
             break;
-          case 'Digit2':
+          case 'Digit3':
           case 'KeyV':
             setVertical();
             break;
