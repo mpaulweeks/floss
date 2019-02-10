@@ -32,6 +32,14 @@
       border: 1px solid black;
       border-radius: 5px;
     }
+    p {
+      font-size: 18px;
+    }
+    em {
+      font-size: 1.2em;
+      font-weight: bold;
+      font-style: normal;
+    }
     .row {
       display: flex;
       flex-direction: row;
@@ -98,6 +106,18 @@
         background-position: left 100% top 0%;
       }
     }
+    .cell[data-animation="twirl"] {
+      animation-name: twirl;
+      animation-duration: 4s;
+    }
+    @keyframes twirl {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(359deg);
+      }
+    }
 
     /* frame animations */
     .cell[data-frame="0"] {
@@ -126,12 +146,15 @@
     <div class="cell" data-frame="0"></div>
   </div>
   <button id="init"> START </button>
-  <h3>
-    press number keys (1-9) to make them dance
-  </h3>
-  <h3>
-    press +/- keys to zoom in/out
-  </h3>
+  <p>
+    press the number keys (1-9) to make them dance
+  </p>
+  <p>
+    press the <em>+</em> and <em>-</em> keys to zoom in/out
+  </p>
+  <p>
+    press the <em>&lt;</em> and <em>&gt;</em> keys to speed up / slow down
+  </p>
 
   <script type="text/javascript">
 
@@ -169,6 +192,17 @@
       setDefault();
     }
 
+    let frameRate = 435;
+    const factor = 0.6;
+    function increaseFrameRate(){
+      frameRate = frameRate * factor;
+      console.log('floss per second:', ((1000 / frameRate) / 6));
+    }
+    function decreaseFrameRate(){
+      frameRate = frameRate / factor;
+      console.log('floss per second:', ((1000 / frameRate) / 6));
+    }
+
 
     function setDefault() {
       rows.forEach((r, ri) => {
@@ -197,6 +231,15 @@
         });
       });
     }
+    function setTwirl() {
+      rows.forEach((r, ri) => {
+        Array.from(r.children).forEach((c, ci) => {
+          c.setAttribute('data-frame', (ri + ci) % 6);
+          c.setAttribute('data-animation', 'twirl');
+          c.setAttribute('data-reverse', ((ri + ci) % 2 === 0));
+        });
+      });
+    }
 
     async function init(){
       resize(5);
@@ -206,6 +249,7 @@
       audio.play();
 
       document.addEventListener('keydown', evt => {
+        // console.log(evt);
         switch (evt.code) {
           case 'Digit1':
           case 'KeyD':
@@ -218,6 +262,16 @@
           case 'Digit3':
           case 'KeyV':
             setVertical();
+            break;
+          case 'Digit4':
+          case 'KeyT':
+            setTwirl();
+            break;
+          case 'Period':
+            increaseFrameRate();
+            break;
+          case 'Comma':
+            decreaseFrameRate();
             break;
           case 'Equal':
             increaseSize();
@@ -237,7 +291,7 @@
           const currentFrame = parseFloat(c.getAttribute('data-frame'));
           c.setAttribute('data-frame', (currentFrame + 1) % 6);
         });
-        await sleep(500);
+        await sleep(frameRate);
       }
     })()
   </script>
