@@ -16,7 +16,8 @@
       width: 100%;
       height: 100%;
       text-align: center;
-
+    }
+    body, button:hover {
       /* https://codepen.io/nohoid/pen/kIfto */
       animation: rainbow 18s ease infinite;
       background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
@@ -34,20 +35,46 @@
       }
     }
 
+    #welcome {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      background-color: white;
+      border-radius: 20px;
+      padding: 10px 50px;
+    }
+
     button {
       cursor: pointer;
       font-size: 20px;
-      padding: 5px;
+      padding: 5px 15px;
       border: 1px solid black;
       border-radius: 5px;
     }
     p {
-      font-size: 18px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
     }
     em {
       font-size: 1.2em;
       font-weight: bold;
       font-style: normal;
+    }
+    #preview {
+      height: 300px;
+      width: 300px;
+      overflow: hidden;
     }
     .row {
       display: flex;
@@ -55,10 +82,6 @@
       justify-content: flex-start;
       align-items: flex-start;
       flex-wrap: nowrap;
-    }
-    .row.splash {
-      width: 300px;
-      margin: auto;
     }
     .cell {
       background-size: 100% 100%;
@@ -147,23 +170,91 @@
     .cell[data-frame="5"] {
       background-image: url('frames/a5.png');
     }
+
+    /* pillbox */
+    .switch {
+      margin-left: 1em;
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    .slider.round {
+      border-radius: 34px;
+    }
+    .slider.round:before {
+      border-radius: 50%;
+    }
   </style>
 </head>
 <body>
 
-  <div class="row splash">
-    <div class="cell" data-frame="0"></div>
+  <div id="welcome">
+    <div id="preview">
+      <div class="row">
+        <div class="cell" data-frame="0"></div>
+      </div>
+    </div>
+    <p>
+      <div>
+        press the number keys <em>1-4</em> to change the dance
+        <br/>
+        press the <em>8</em> and <em>9</em> keys to speed up / slow down
+        <br/>
+        press the <em>0</em> key to reset the speed
+        <br/>
+        press the <em>+</em> and <em>-</em> keys to zoom in/out
+      </div>
+    </p>
+    <p>
+      play music?
+      <label id="toggleMusic" class="switch">
+        <input id="musicCheckbox" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </p>
+    <p>
+      <button id="init"> START THE DANCE PARTY </button>
+    </p>
   </div>
-  <button id="init"> START </button>
-  <p>
-    press the number keys (1-9) to make them dance
-  </p>
-  <p>
-    press the <em>+</em> and <em>-</em> keys to zoom in/out
-  </p>
-  <p>
-    press the <em>&lt;</em> and <em>&gt;</em> keys to speed up / slow down
-  </p>
 
   <script type="text/javascript">
 
@@ -173,8 +264,9 @@
       });
     };
 
-    let rows = [];
-    let cells = Array.from(document.getElementsByClassName('cell'));
+    let target = document.getElementById('preview');
+    let rows;
+    let cells;
     function resize(number) {
       let body = '';
       for (let r = 0; r < number; r++){
@@ -188,7 +280,7 @@
           </div>
         `;
       }
-      document.body.innerHTML = body;
+      target.innerHTML = body;
       rows = Array.from(document.getElementsByClassName('row'));
       cells = Array.from(document.getElementsByClassName('cell'));
     }
@@ -201,7 +293,8 @@
       setDefault();
     }
 
-    let frameRate = 435;
+    const frameRateDefault = 435;
+    let frameRate = frameRateDefault;
     const factor = 0.6;
     function increaseFrameRate(){
       frameRate = frameRate * factor;
@@ -210,6 +303,9 @@
     function decreaseFrameRate(){
       frameRate = frameRate / factor;
       console.log('floss per second:', ((1000 / frameRate) / 6));
+    }
+    function resetFrameRate(){
+      frameRate = frameRateDefault;
     }
 
 
@@ -250,48 +346,65 @@
       });
     }
 
-    const audio = new Audio('party.mp3');
-    async function init(){
+
+    document.addEventListener('keydown', evt => {
+      // console.log(evt);
+      switch (evt.code) {
+        case 'Digit1':
+        case 'KeyD':
+          setDefault();
+          break;
+        case 'Digit2':
+        case 'KeyH':
+          setHorizontal();
+          break;
+        case 'Digit3':
+        case 'KeyV':
+          setVertical();
+          break;
+        case 'Digit4':
+        case 'KeyT':
+          setTwirl();
+          break;
+        case 'Digit8':
+          decreaseFrameRate();
+          break;
+        case 'Digit9':
+          increaseFrameRate();
+          break;
+        case 'Digit0':
+          resetFrameRate();
+          break;
+        case 'Equal':
+          increaseSize();
+          break;
+        case 'Minus':
+          decreaseSize();
+          break;
+      }
+    });
+
+    // setup preview
+    let audio;
+    resize(1);
+    setDefault();
+    document.getElementById('toggleMusic').addEventListener('click', () => {
+      if (document.getElementById('musicCheckbox').value){
+        audio = new Audio('party.mp3');
+      } else {
+        audio = undefined;
+      }
+    });
+
+    // setup fullscreen
+    document.getElementById('init').addEventListener('click', () => {
+      target = document.body;
       resize(5);
       setDefault();
-
-      audio.play();
-
-      document.addEventListener('keydown', evt => {
-        // console.log(evt);
-        switch (evt.code) {
-          case 'Digit1':
-          case 'KeyD':
-            setDefault();
-            break;
-          case 'Digit2':
-          case 'KeyH':
-            setHorizontal();
-            break;
-          case 'Digit3':
-          case 'KeyV':
-            setVertical();
-            break;
-          case 'Digit4':
-          case 'KeyT':
-            setTwirl();
-            break;
-          case 'Period':
-            increaseFrameRate();
-            break;
-          case 'Comma':
-            decreaseFrameRate();
-            break;
-          case 'Equal':
-            increaseSize();
-            break;
-          case 'Minus':
-            decreaseSize();
-            break;
-        }
-      });
-    }
-    document.getElementById('init').addEventListener('click', init);
+      if (audio) {
+        audio.play();
+      }
+    });
 
     // start the animation loop
     (async () => {
