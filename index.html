@@ -17,6 +17,9 @@
       height: 100%;
       text-align: center;
     }
+    body {
+      overflow: hidden;
+    }
     body, button:hover {
       /* https://codepen.io/nohoid/pen/kIfto */
       animation: rainbow 18s ease infinite;
@@ -59,7 +62,7 @@
       border: 1px solid black;
       border-radius: 5px;
     }
-    p {
+    p.flex {
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -70,6 +73,9 @@
       font-size: 1.2em;
       font-weight: bold;
       font-style: normal;
+    }
+    .hidden {
+      display: none;
     }
     #preview {
       height: 300px;
@@ -152,23 +158,29 @@
     }
 
     /* frame animations */
-    .cell[data-frame="0"] {
+    .cell[data-dance="floss"][data-frame="0"] {
       background-image: url('frames/a0.png');
     }
-    .cell[data-frame="1"] {
+    .cell[data-dance="floss"][data-frame="1"] {
       background-image: url('frames/a1.png');
     }
-    .cell[data-frame="2"] {
+    .cell[data-dance="floss"][data-frame="2"] {
       background-image: url('frames/a2.png');
     }
-    .cell[data-frame="3"] {
+    .cell[data-dance="floss"][data-frame="3"] {
       background-image: url('frames/a3.png');
     }
-    .cell[data-frame="4"] {
+    .cell[data-dance="floss"][data-frame="4"] {
       background-image: url('frames/a4.png');
     }
-    .cell[data-frame="5"] {
+    .cell[data-dance="floss"][data-frame="5"] {
       background-image: url('frames/a5.png');
+    }
+    .cell[data-dance="shuffle"][data-frame="0"] {
+      background-image: url('frames/s0.png');
+    }
+    .cell[data-dance="shuffle"][data-frame="1"] {
+      background-image: url('frames/s1.png');
     }
 
     /* pillbox */
@@ -234,17 +246,15 @@
       </div>
     </div>
     <p>
-      <div>
-        press the number keys <em>1-4</em> to change the dance
-        <br/>
-        press the <em>8</em> and <em>9</em> keys to speed up / slow down
-        <br/>
-        press the <em>0</em> key to reset the speed
-        <br/>
-        press the <em>+</em> and <em>-</em> keys to zoom in/out
-      </div>
+      press the number keys <em>1-5</em> to change the dance
+      <br/>
+      press the <em>8</em> and <em>9</em> keys to speed up / slow down
+      <br/>
+      press the <em>0</em> key to reset the speed
+      <br/>
+      press the <em>+</em> and <em>-</em> keys to zoom in/out
     </p>
-    <p>
+    <p class="flex">
       play music?
       <label id="toggleMusic" class="switch">
         <input id="musicCheckbox" type="checkbox">
@@ -252,11 +262,32 @@
       </label>
     </p>
     <p>
-      <button id="init"> START THE DANCE PARTY </button>
+      <span id="loading">loading, please wait...</span>
+      <button id="init" class="hidden"> START THE DANCE PARTY </button>
     </p>
   </div>
 
   <script type="text/javascript">
+
+    Promise.all(
+      [
+        'frames/a0.png',
+        'frames/a1.png',
+        'frames/a2.png',
+        'frames/a3.png',
+        'frames/a4.png',
+        'frames/a5.png',
+        'frames/s0.png',
+        'frames/s1.png',
+      ].map(url => new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = resolve;
+          img.src = url;
+        }))
+    ).then(() => {
+      document.getElementById('loading').remove();
+      document.getElementById('init').classList.remove('hidden');
+    });
 
     function sleep(time) {
       return new Promise((resolve, reject) => {
@@ -264,14 +295,18 @@
       });
     };
 
+    let setCurrent = undefined;
     let target = document.getElementById('preview');
+    let columnCount = undefined;
     let rows;
     let cells;
-    function resize(number) {
+    function resize() {
+      const size = target.clientWidth / columnCount;
+      const rowCount = Math.ceil(target.clientHeight / size);
       let body = '';
-      for (let r = 0; r < number; r++){
+      for (let r = 0; r < rowCount; r++){
         let row = '';
-        for (let c = 0; c < number; c++){
+        for (let c = 0; c < columnCount; c++){
           row += '<div class="cell"></div>';
         }
         body += `
@@ -285,24 +320,31 @@
       cells = Array.from(document.getElementsByClassName('cell'));
     }
     function increaseSize() {
-      resize(Math.max(1, rows.length - 1));
-      setDefault();
+      if (columnCount > 1){
+        columnCount = columnCount - 1;
+        resize();
+        setCurrent();
+      }
     }
     function decreaseSize() {
-      resize(Math.min(20, rows.length + 1));
-      setDefault();
+      if (columnCount < 20) {
+        columnCount = columnCount + 1;
+        resize();
+        setCurrent();
+      }
     }
 
     const frameRateDefault = 435;
+    let frameCount = 6;
     let frameRate = frameRateDefault;
     const factor = 0.6;
     function increaseFrameRate(){
       frameRate = frameRate * factor;
-      console.log('floss per second:', ((1000 / frameRate) / 6));
+      console.log('floss per second:', ((1000 / frameRate) / frameCount));
     }
     function decreaseFrameRate(){
       frameRate = frameRate / factor;
-      console.log('floss per second:', ((1000 / frameRate) / 6));
+      console.log('floss per second:', ((1000 / frameRate) / frameCount));
     }
     function resetFrameRate(){
       frameRate = frameRateDefault;
@@ -310,40 +352,68 @@
 
 
     function setDefault() {
+      frameCount = 6;
       rows.forEach((r, ri) => {
         Array.from(r.children).forEach((c, ci) => {
-          c.setAttribute('data-frame', (ri + ci) % 6);
+          c.setAttribute('data-dance', 'floss');
+          c.setAttribute('data-frame', (ri + ci) % frameCount);
           c.setAttribute('data-animation', '');
           c.setAttribute('data-reverse', false);
         });
       });
+      setCurrent = () => setTimeout(setDefault, 0);
     }
     function setVertical() {
+      setDefault();
+      frameCount = 6;
       rows.forEach((r, ri) => {
         Array.from(r.children).forEach((c, ci) => {
-          c.setAttribute('data-frame', ci % 6);
+          c.setAttribute('data-dance', 'floss');
+          c.setAttribute('data-frame', ci % frameCount);
           c.setAttribute('data-animation', 'vertical');
           c.setAttribute('data-reverse', (ci % 2 === 0));
         });
       });
+      setCurrent = () => setTimeout(setVertical, 0);
     }
     function setHorizontal() {
+      setDefault();
+      frameCount = 6;
       rows.forEach((r, ri) => {
         Array.from(r.children).forEach((c, ci) => {
-          c.setAttribute('data-frame', ri % 6);
+          c.setAttribute('data-dance', 'floss');
+          c.setAttribute('data-frame', ri % frameCount);
           c.setAttribute('data-animation', 'horizontal');
           c.setAttribute('data-reverse', (ri % 2 === 0));
         });
       });
+      setCurrent = () => setTimeout(setHorizontal, 0);
     }
     function setTwirl() {
+      setDefault();
+      frameCount = 6;
       rows.forEach((r, ri) => {
         Array.from(r.children).forEach((c, ci) => {
-          c.setAttribute('data-frame', (ri + ci) % 6);
+          c.setAttribute('data-dance', 'floss');
+          c.setAttribute('data-frame', (ri + ci) % frameCount);
           c.setAttribute('data-animation', 'twirl');
           c.setAttribute('data-reverse', ((ri + ci) % 2 === 0));
         });
       });
+      setCurrent = () => setTimeout(setTwirl, 0);
+    }
+    function setShuffle() {
+      setDefault();
+      frameCount = 2;
+      rows.forEach((r, ri) => {
+        Array.from(r.children).forEach((c, ci) => {
+          c.setAttribute('data-dance', 'shuffle');
+          c.setAttribute('data-frame', ri % frameCount);
+          c.setAttribute('data-animation', 'horizontal');
+          c.setAttribute('data-reverse', (ri % 2 === 0));
+        });
+      });
+      setCurrent = () => setTimeout(setShuffle, 0);
     }
 
 
@@ -366,6 +436,10 @@
         case 'KeyT':
           setTwirl();
           break;
+        case 'Digit5':
+        case 'KeyS':
+          setShuffle();
+          break;
         case 'Digit8':
           decreaseFrameRate();
           break;
@@ -386,7 +460,8 @@
 
     // setup preview
     let audio;
-    resize(1);
+    columnCount = 1;
+    resize();
     setDefault();
     document.getElementById('toggleMusic').addEventListener('click', () => {
       if (document.getElementById('musicCheckbox').value){
@@ -399,11 +474,21 @@
     // setup fullscreen
     document.getElementById('init').addEventListener('click', () => {
       target = document.body;
-      resize(5);
-      setDefault();
+      columnCount = 5;
+      resize();
+      setCurrent();
       if (audio) {
         audio.play();
       }
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          resize();
+          setCurrent();
+        }, 250);
+      }, false);
     });
 
     // start the animation loop
@@ -411,7 +496,7 @@
       while (true) {
         cells.forEach((c, ci) => {
           const currentFrame = parseFloat(c.getAttribute('data-frame'));
-          c.setAttribute('data-frame', (currentFrame + 1) % 6);
+          c.setAttribute('data-frame', (currentFrame + 1) % frameCount);
         });
         await sleep(frameRate);
       }
