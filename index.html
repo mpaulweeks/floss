@@ -38,21 +38,45 @@
       }
     }
 
-    #welcome {
+    #modal {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-
+    }
+    #welcome, #loading {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       flex-wrap: nowrap;
-
       background-color: white;
       border-radius: 20px;
+    }
+    #welcome {
+      position: relative;
       padding: 10px 50px;
+    }
+    #loading {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+    }
+    #instructions-desktop {
+      display: block;
+    }
+    #instructions-mobile {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      #instructions-desktop {
+        display: none;
+      }
+      #instructions-mobile {
+        display: block;
+      }
     }
 
     button {
@@ -76,9 +100,6 @@
       font-size: 1.2em;
       font-weight: bold;
       font-style: normal;
-    }
-    .hidden {
-      display: none;
     }
     #preview {
       height: 300px;
@@ -242,38 +263,43 @@
 </head>
 <body>
 
-  <div id="welcome">
-    <div id="preview">
-      <div class="row">
-        <div class="cell" data-frame="0"></div>
+  <div id="modal">
+    <div id="welcome">
+      <div id="preview">
+        <div class="row">
+          <div class="cell" data-frame="0"></div>
+        </div>
       </div>
+      <p id="instructions-desktop">
+        press the number keys <em>1-5</em> to change the dance
+        <br/>
+        press the <em>8</em> and <em>9</em> keys to slow down / speed up
+        <br/>
+        press the <em>0</em> key to reset the speed
+        <br/>
+        press the <em>+</em> and <em>-</em> keys to zoom in/out
+      </p>
+      <p class="flex">
+        play music?
+        <label id="toggleMusic" class="switch">
+          <input id="musicCheckbox" type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </p>
+      <p>
+        <button id="init"> LET THE PARTY BEGIN </button>
+      </p>
+      <p class="small">
+        a silly thing made by
+        <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
+        <br/>with artwork by
+        <a href="http://instagram.com/amyjxu">@amyjxu</a>
+      </p>
+      <p id="instructions-mobile">
+        open this on desktop for more dance options!
+      </p>
+      <div id="loading">loading party, please wait...</div>
     </div>
-    <p>
-      press the number keys <em>1-5</em> to change the dance
-      <br/>
-      press the <em>8</em> and <em>9</em> keys to slow down / speed up
-      <br/>
-      press the <em>0</em> key to reset the speed
-      <br/>
-      press the <em>+</em> and <em>-</em> keys to zoom in/out
-    </p>
-    <p class="flex">
-      play music?
-      <label id="toggleMusic" class="switch">
-        <input id="musicCheckbox" type="checkbox">
-        <span class="slider round"></span>
-      </label>
-    </p>
-    <p>
-      <span id="loading">loading, please wait...</span>
-      <button id="init" class="hidden"> START THE DANCE PARTY </button>
-    </p>
-    <p class="small">
-      a silly thing made by
-      <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
-      with artwork by
-      <a href="http://instagram.com/amyjxu">@amyjxu</a>
-    </p>
   </div>
 
   <script type="text/javascript">
@@ -295,7 +321,6 @@
         }))
     ).then(() => {
       document.getElementById('loading').remove();
-      document.getElementById('init').classList.remove('hidden');
     });
 
     function sleep(time) {
