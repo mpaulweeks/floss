@@ -1,10 +1,10 @@
 export function Dancer(props: {
   frames: string[];
   size: number;
-  ticks: number;
+  tick: number;
   offset: number;
 }) {
-  const localTick = props.ticks + props.offset;
+  const localTick = props.tick + props.offset;
   const thisFrame = props.frames[localTick % props.frames.length];
 
   return (
