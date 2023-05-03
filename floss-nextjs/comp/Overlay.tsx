@@ -14,7 +14,7 @@ export function Overlay(props: {
           ...s,
           count: Math.max(1, s.count - 1),
         }))}>
-          small
+          fewer
         </button>
         <button onClick={() => props.setSettings(s => ({
           ...s,
@@ -26,7 +26,7 @@ export function Overlay(props: {
           ...s,
           count: Math.min(10, s.count + 1),
         }))}>
-          large
+          more
         </button>
       </div>
       <div>
