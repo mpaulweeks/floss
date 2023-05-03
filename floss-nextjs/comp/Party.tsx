@@ -1,8 +1,7 @@
-import { AnimationType, Rect, Settings, defaultSettings } from "@/types";
+import { AnimationFrames, AnimationType, Rect, Settings, defaultSettings } from "@/types";
 import { useEffect, useState } from "react";
 import { Overlay } from "./Overlay";
 import { HorizontalGrid } from "./HorizontalGrid";
-import { range } from "@/util";
 import { useTimer } from "../hooks/useTimer";
 import { VerticalGrid } from "./VerticalGrid";
 import { TwirlGrid } from "./TwirlGrid";
@@ -21,9 +20,7 @@ export function Party() {
     });
   }, []);
 
-  // todo
-  const frames = range(6).map(n => `/frames/a${n}.png`);
-
+  const frames = AnimationFrames[settings.dance];
   const gridProps = { frames, settings, rect, tick }
 
   return (

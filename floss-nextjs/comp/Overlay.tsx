@@ -1,4 +1,4 @@
-import { AnimationType, Settings, defaultSettings } from "@/types";
+import { AnimationDance, AnimationType, Settings, defaultSettings } from "@/types";
 import { Dispatch, SetStateAction } from "react";
 import styles from '@/styles/Party.module.css';
 import { useMouse } from "@/hooks/useMouse";
@@ -12,6 +12,20 @@ export function Overlay(props: {
     <section className={styles.overlay} style={{
       opacity: isActive ? 1 : 0,
     }}>
+      <div>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          dance: AnimationDance.Floss,
+        }))}>
+          floss
+        </button>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          dance: AnimationDance.Shuffle,
+        }))}>
+          shuffle
+        </button>
+      </div>
       <div>
         <button onClick={() => props.setSettings(s => ({
           ...s,
