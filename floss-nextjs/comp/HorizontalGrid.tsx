@@ -2,6 +2,7 @@ import { Rect, Settings } from "@/types";
 import styles from '@/styles/Party.module.css';
 import { Dancer } from "./Dancer";
 import { range } from "@/util";
+import { GenericGrid } from "./GenericGrid";
 
 export function HorizontalGrid(props: {
   frames: string[];
@@ -13,23 +14,14 @@ export function HorizontalGrid(props: {
   const size = Math.floor(props.rect.height / props.settings.count);
   const cols = Math.floor(props.rect.width / size) + 2;
   return (
-    <section className={styles.party}>
-      {range(rows).map((r, ri) => (
-        <div key={`hori-${rows}-row-${ri}`} className={[
-          styles.horizontal,
-        ].join(' ')}>
-          {range(cols).map((c, ci) => (
-            <Dancer
-              key={`hori-${rows}-row-${ri}-col-${ci}`}
-              frames={props.frames}
-              size={size}
-              tick={props.tick}
-              offset={ri}
-              moreClassNames={ri % 2 === 0 ? [] : [styles.reverse]}
-            />
-          ))}
-        </div>
-      ))}
-    </section>
+    <GenericGrid
+      {...props}
+      size={size}
+      rows={rows}
+      cols={cols}
+      className={styles.horizontal}
+      getOffset={args => args.ri}
+      isReverse={args => args.ri % 2 === 0}
+    />
   );
 }
