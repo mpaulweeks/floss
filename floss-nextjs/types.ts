@@ -18,8 +18,3 @@ export const defaultSettings = (): Settings => ({
   count: 3,
   animation: AnimationType.Row,
 });
-
-export type FlossAnimation = {
-  animation: string;
-  direction: 'row' | 'column';
-}

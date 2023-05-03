@@ -1,9 +1,9 @@
-import { AnimationType, FlossAnimation, Rect, Settings, defaultSettings } from "@/types";
-import { useEffect, useRef, useState } from "react";
+import { AnimationType, Rect, Settings, defaultSettings } from "@/types";
+import { useEffect, useState } from "react";
 import { Overlay } from "./Overlay";
 import { HorizontalGrid } from "./HorizontalGrid";
 import { range } from "@/util";
-import { useTimer } from "./Timer";
+import { useTimer } from "../hooks/useTimer";
 import { VerticalGrid } from "./VerticalGrid";
 
 export function Party() {
