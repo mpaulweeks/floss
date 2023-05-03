@@ -1,4 +1,4 @@
-import { AnimationFrames, AnimationType, Rect, Settings, defaultSettings } from "@/types";
+import { AnimationFrames, AnimationLayout, Rect, Settings, defaultSettings } from "@/types";
 import { useEffect, useState } from "react";
 import { Overlay } from "./Overlay";
 import { HorizontalGrid } from "./HorizontalGrid";
@@ -25,9 +25,9 @@ export function Party() {
 
   return (
     <>
-      {settings.animation === AnimationType.Row && <HorizontalGrid {...gridProps} />}
-      {settings.animation === AnimationType.Column && <VerticalGrid {...gridProps} />}
-      {settings.animation === AnimationType.Twirl && <TwirlGrid {...gridProps} />}
+      {settings.layout === AnimationLayout.Row && <HorizontalGrid {...gridProps} />}
+      {settings.layout === AnimationLayout.Column && <VerticalGrid {...gridProps} />}
+      {settings.layout === AnimationLayout.Twirl && <TwirlGrid {...gridProps} />}
       <Overlay settings={settings} setSettings={setSettings} />
     </>
   )

@@ -5,7 +5,7 @@ export type Rect = {
   height: number;
 }
 
-export enum AnimationType {
+export enum AnimationLayout {
   Row = 1,
   Column = 2,
   Twirl = 3,
@@ -23,12 +23,12 @@ export const AnimationFrames = {
 export type Settings = {
   speed: number; // 1 - 10
   count: number; // 1 - 10
-  animation: AnimationType;
+  layout: AnimationLayout;
   dance: AnimationDance;
 }
 export const defaultSettings = (): Settings => ({
   speed: 3,
   count: 3,
-  animation: AnimationType.Twirl,
+  layout: AnimationLayout.Row,
   dance: AnimationDance.Floss,
 });

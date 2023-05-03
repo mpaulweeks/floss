@@ -1,4 +1,4 @@
-import { AnimationDance, AnimationType, Settings, defaultSettings } from "@/types";
+import { AnimationDance, AnimationLayout, Settings, defaultSettings } from "@/types";
 import { Dispatch, SetStateAction } from "react";
 import styles from '@/styles/Party.module.css';
 import { useMouse } from "@/hooks/useMouse";
@@ -29,19 +29,19 @@ export function Overlay(props: {
       <div>
         <button onClick={() => props.setSettings(s => ({
           ...s,
-          animation: AnimationType.Row
+          layout: AnimationLayout.Row
         }))}>
           row
         </button>
         <button onClick={() => props.setSettings(s => ({
           ...s,
-          animation: AnimationType.Column
+          layout: AnimationLayout.Column
         }))}>
           col
         </button>
         <button onClick={() => props.setSettings(s => ({
           ...s,
-          animation: AnimationType.Twirl
+          layout: AnimationLayout.Twirl
         }))}>
           twirl
         </button>
