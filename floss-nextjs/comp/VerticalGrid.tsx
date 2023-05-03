@@ -1,7 +1,5 @@
 import { Rect, Settings } from "@/types";
 import styles from '@/styles/Party.module.css';
-import { Dancer } from "./Dancer";
-import { range } from "@/util";
 import { GenericGrid } from "./GenericGrid";
 
 export function VerticalGrid(props: {

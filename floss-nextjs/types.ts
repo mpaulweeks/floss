@@ -6,6 +6,7 @@ export type Rect = {
 export enum AnimationType {
   Row = 1,
   Column = 2,
+  Twirl = 3,
 }
 
 export type Settings = {
@@ -16,5 +17,5 @@ export type Settings = {
 export const defaultSettings = (): Settings => ({
   speed: 3,
   count: 3,
-  animation: AnimationType.Row,
+  animation: AnimationType.Twirl,
 });

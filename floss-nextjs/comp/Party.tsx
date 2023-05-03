@@ -5,6 +5,7 @@ import { HorizontalGrid } from "./HorizontalGrid";
 import { range } from "@/util";
 import { useTimer } from "../hooks/useTimer";
 import { VerticalGrid } from "./VerticalGrid";
+import { TwirlGrid } from "./TwirlGrid";
 
 export function Party() {
   const [settings, setSettings] = useState<Settings>(defaultSettings());
@@ -29,6 +30,7 @@ export function Party() {
     <>
       {settings.animation === AnimationType.Row && <HorizontalGrid {...gridProps} />}
       {settings.animation === AnimationType.Column && <VerticalGrid {...gridProps} />}
+      {settings.animation === AnimationType.Twirl && <TwirlGrid {...gridProps} />}
       <Overlay settings={settings} setSettings={setSettings} />
     </>
   )

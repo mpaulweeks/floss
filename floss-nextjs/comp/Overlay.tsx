@@ -25,6 +25,12 @@ export function Overlay(props: {
         }))}>
           col
         </button>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          animation: AnimationType.Twirl
+        }))}>
+          twirl
+        </button>
       </div>
       <div>
         {props.settings.count}
