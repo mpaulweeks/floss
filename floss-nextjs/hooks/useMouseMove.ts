@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useMouse(props: {
+export function useMouseMove(props: {
   timeout: number;
 }) {
   const [isActive, setActive] = useState(false);
