@@ -11,21 +11,21 @@ export function HorizontalGrid(props: {
 }) {
   const rows = props.settings.count;
   const size = Math.floor(props.rect.height / props.settings.count);
-  const cols = Math.floor(props.rect.width / size) * 3;
+  const cols = Math.floor(props.rect.width / size) + 2;
   return (
     <section className={styles.party}>
       {range(rows).map((r, ri) => (
-        <div key={`row-${ri}`} className={[
+        <div key={`hori-${rows}-row-${ri}`} className={[
           styles.horizontal,
-          ri % 2 === 0 ? '' : styles.reverse,
         ].join(' ')}>
           {range(cols).map((c, ci) => (
             <Dancer
-              key={`row-${ri}-col-${ci}`}
+              key={`hori-${rows}-row-${ri}-col-${ci}`}
               frames={props.frames}
               size={size}
               tick={props.tick}
               offset={ri}
+              moreClassNames={ri % 2 === 0 ? [] : [styles.reverse]}
             />
           ))}
         </div>
