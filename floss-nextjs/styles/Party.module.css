@@ -58,8 +58,15 @@
     left: 50%;
   }
 }
+@keyframes slideDown {
+  from {
+    top: -50%;
+  }
+  to {
+    top: 50%;
+  }
+}
 .horizontal {
-  flex-shrink: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -67,6 +74,19 @@
 }
 .horizontal .dancer img {
   animation-name: slideRight;
+  animation-duration: 2s;
+  animation-delay: 0s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.vertical {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+.vertical .dancer img {
+  animation-name: slideDown;
   animation-duration: 2s;
   animation-delay: 0s;
   animation-timing-function: linear;

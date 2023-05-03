@@ -1,4 +1,4 @@
-import { Settings, defaultSettings } from "@/types";
+import { AnimationType, Settings, defaultSettings } from "@/types";
 import { Dispatch, SetStateAction } from "react";
 import styles from '@/styles/Party.module.css';
 
@@ -8,6 +8,20 @@ export function Overlay(props: {
 }) {
   return (
     <section className={styles.overlay}>
+      <div>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          animation: AnimationType.Row
+        }))}>
+          row
+        </button>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          animation: AnimationType.Column
+        }))}>
+          col
+        </button>
+      </div>
       <div>
         {props.settings.count}
         <button onClick={() => props.setSettings(s => ({

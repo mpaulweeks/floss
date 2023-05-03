@@ -1,15 +1,12 @@
-import { FlossAnimation, Rect, Settings, defaultSettings } from "@/types";
+import { AnimationType, FlossAnimation, Rect, Settings, defaultSettings } from "@/types";
 import { useEffect, useRef, useState } from "react";
 import { Overlay } from "./Overlay";
 import { HorizontalGrid } from "./HorizontalGrid";
 import { range } from "@/util";
 import { useTimer } from "./Timer";
+import { VerticalGrid } from "./VerticalGrid";
 
 export function Party() {
-  const [animation, setAnimation] = useState<FlossAnimation>({
-    animation: 'todo',
-    direction: 'row',
-  });
   const [settings, setSettings] = useState<Settings>(defaultSettings());
   const [rect, setRect] = useState<Rect>({ width: 800, height: 600, });
   const { tick } = useTimer({ settings, });
@@ -30,7 +27,8 @@ export function Party() {
 
   return (
     <>
-      {animation.direction === 'row' && <HorizontalGrid {...gridProps} />}
+      {settings.animation === AnimationType.Row && <HorizontalGrid {...gridProps} />}
+      {settings.animation === AnimationType.Column && <VerticalGrid {...gridProps} />}
       <Overlay settings={settings} setSettings={setSettings} />
     </>
   )
