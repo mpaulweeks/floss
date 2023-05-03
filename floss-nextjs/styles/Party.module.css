@@ -19,3 +19,39 @@
   right: 0;
   bottom: 0;
 }
+
+.dancer {
+  background-color: black;
+}
+.dancer img {
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(0%);
+    /* margin-left: 0px; */
+  }
+  to {
+    transform: translateX(-33%);
+    /* margin-left: -100%; */
+  }
+}
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  animation-name: slideRight;
+  animation-duration: 5s;
+  animation-delay: 0s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+.reverse {
+  justify-content: flex-end;
+  animation-direction: reverse;
+}

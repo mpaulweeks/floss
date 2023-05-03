@@ -27,13 +27,10 @@ export function Party() {
   const frames = range(6).map(n => `/frames/a${n}.png`);
 
   const gridProps = { frames, settings, rect, tick }
-  const Grid = () => animation.direction === 'row'
-    ? <HorizontalGrid {...gridProps} />
-    : <h1>todo</h1>;
 
   return (
     <>
-      <Grid />
+      {animation.direction === 'row' && <HorizontalGrid {...gridProps} />}
       <Overlay settings={settings} setSettings={setSettings} />
     </>
   )

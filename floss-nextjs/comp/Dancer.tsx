@@ -1,3 +1,5 @@
+import styles from '@/styles/Party.module.css';
+
 export function Dancer(props: {
   frames: string[];
   size: number;
@@ -8,9 +10,11 @@ export function Dancer(props: {
   const thisFrame = props.frames[localTick % props.frames.length];
 
   return (
-    <img src={thisFrame} style={{
+    <div className={styles.dancer} style={{
       width: props.size + 'px',
       height: props.size + 'px',
-    }} />
+    }}>
+      <img src={thisFrame} />
+    </div>
   )
 }

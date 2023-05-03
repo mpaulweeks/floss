@@ -11,8 +11,10 @@ export function useTimer(props: {
   useEffect(() => {
     clearInterval(timerRef.current);
 
-    const timeout = Math.floor(1000 / props.settings.speed);
-    timerRef.current = setInterval(() => setTick(t => t + 1), timeout);
+    if (props.settings.speed > 0) {
+      const timeout = Math.floor(1000 / props.settings.speed);
+      timerRef.current = setInterval(() => setTick(t => t + 1), timeout);
+    }
   }, [props.settings.speed]);
 
   return { tick };

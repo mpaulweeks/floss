@@ -33,7 +33,7 @@ export function Overlay(props: {
         {props.settings.speed}
         <button onClick={() => props.setSettings(s => ({
           ...s,
-          speed: Math.max(1, s.speed - 1),
+          speed: Math.max(0, s.speed - 1),
         }))}>
           slow
         </button>
