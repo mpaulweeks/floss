@@ -20,9 +20,7 @@ export function Party() {
     });
   }, []);
 
-  const frames = AnimationFrames[settings.dance];
   const gridProps = { frames, settings, rect, tick }
-
   return (
     <>
       {settings.layout === AnimationLayout.Row && <HorizontalGrid {...gridProps} />}

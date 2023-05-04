@@ -68,24 +68,45 @@ export function Overlay(props: {
         </button>
       </div>
       <div>
-        {props.settings.speed}
+        {props.settings.danceSpeed}
         <button onClick={() => props.setSettings(s => ({
           ...s,
-          speed: Math.max(0, s.speed - 1),
+          danceSpeed: Math.max(0, s.danceSpeed - 1),
         }))}>
-          slow
+          dance slow
         </button>
         <button onClick={() => props.setSettings(s => ({
           ...s,
-          speed: defaultSettings().speed,
+          danceSpeed: defaultSettings().danceSpeed,
         }))}>
           reset
         </button>
         <button onClick={() => props.setSettings(s => ({
           ...s,
-          speed: Math.min(10, s.speed + 1),
+          danceSpeed: Math.min(10, s.danceSpeed + 1),
         }))}>
-          fast
+          dance fast
+        </button>
+      </div>
+      <div>
+        {props.settings.moveSpeed}
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          moveSpeed: Math.max(1, s.moveSpeed - 1),
+        }))}>
+          move slow
+        </button>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          moveSpeed: defaultSettings().moveSpeed,
+        }))}>
+          reset
+        </button>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
+          moveSpeed: Math.min(10, s.moveSpeed + 1),
+        }))}>
+          move fast
         </button>
       </div>
     </section>

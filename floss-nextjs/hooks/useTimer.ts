@@ -11,11 +11,11 @@ export function useTimer(props: {
   useEffect(() => {
     clearInterval(timerRef.current);
 
-    if (props.settings.speed > 0) {
-      const timeout = Math.floor(1000 / props.settings.speed);
+    if (props.settings.danceSpeed > 0) {
+      const timeout = Math.floor(1000 / props.settings.danceSpeed);
       timerRef.current = setInterval(() => setTick(t => t + 1), timeout);
     }
-  }, [props.settings.speed]);
+  }, [props.settings.danceSpeed]);
 
   return { tick };
 }

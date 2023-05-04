@@ -1,10 +1,10 @@
-import { Rect, Settings } from "@/types";
+import { AnimationFrames, Rect, Settings } from "@/types";
 import styles from '@/styles/Party.module.css';
 import { Dancer } from "./Dancer";
 import { range } from "@/util";
 
 export function GenericGrid(props: {
-  frames: string[];
+  settings: Settings;
   tick: number;
   size: number;
   rows: number;
@@ -13,6 +13,7 @@ export function GenericGrid(props: {
   getOffset(args: { ri: number, ci: number, }): number;
   isReverse(args: { ri: number, ci: number, }): boolean;
 }) {
+  const frames = AnimationFrames[props.settings.dance];
   const key = [props.rows, props.cols].join('x');
   return (
     <section className={[styles.party, props.className].join(' ')}>
@@ -21,7 +22,8 @@ export function GenericGrid(props: {
           {range(props.cols).map((c, ci) => (
             <Dancer
               key={`grid-${key}-row-${ri}-col-${ci}`}
-              frames={props.frames}
+              settings={props.settings}
+              frames={frames}
               size={props.size}
               tick={props.tick}
               offset={props.getOffset({ ri, ci })}

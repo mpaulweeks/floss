@@ -3,7 +3,6 @@ import styles from '@/styles/Party.module.css';
 import { GenericGrid } from "./GenericGrid";
 
 export function VerticalGrid(props: {
-  frames: string[];
   settings: Settings;
   rect: Rect;
   tick: number;

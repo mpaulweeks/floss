@@ -21,14 +21,16 @@ export const AnimationFrames = {
 }
 
 export type Settings = {
-  speed: number; // 1 - 10
   count: number; // 1 - 10
+  danceSpeed: number; // 1 - 10
+  moveSpeed: number; // 1 - 10
   layout: AnimationLayout;
   dance: AnimationDance;
 }
 export const defaultSettings = (): Settings => ({
-  speed: 3,
   count: 3,
+  danceSpeed: 3,
+  moveSpeed: 3,
   layout: AnimationLayout.Row,
   dance: AnimationDance.Floss,
 });

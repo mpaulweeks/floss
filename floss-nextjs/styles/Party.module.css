@@ -87,21 +87,18 @@
 }
 .horizontal .dancer img {
   animation-name: slideRight;
-  animation-duration: 2s;
   animation-delay: 0s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 .vertical .dancer img {
   animation-name: slideDown;
-  animation-duration: 2s;
   animation-delay: 0s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 .twirl .dancer img {
   animation-name: twirl;
-  animation-duration: 2s;
   animation-delay: 0s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
