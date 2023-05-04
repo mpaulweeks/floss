@@ -1,17 +1,14 @@
 import { AnimationDance, AnimationLayout, Settings, defaultSettings } from "@/types";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import styles from '@/styles/Party.module.css';
-import { useMouseMove } from "@/hooks/useMouseMove";
+import hoverStyles from '@/styles/Hover.module.css';
 
 export function Overlay(props: {
   settings: Settings;
   setSettings: Dispatch<SetStateAction<Settings>>;
 }) {
-  const { isActive } = useMouseMove({ timeout: 3000, });
   return (
-    <section className={styles.overlay} style={{
-      opacity: isActive ? 1 : 0,
-    }}>
+    <section className={[styles.overlay, hoverStyles.hover].join(' ')}>
       <div>
         <button onClick={() => props.setSettings(s => ({
           ...s,
