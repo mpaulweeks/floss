@@ -1,4 +1,4 @@
-import { AnimationFrames, AnimationLayout, Rect, Settings, defaultSettings } from "@/types";
+import { AnimationLayout, Rect, Settings, defaultSettings } from "@/types";
 import { useEffect, useState } from "react";
 import { Overlay } from "./Overlay";
 import { HorizontalGrid } from "./HorizontalGrid";
@@ -20,7 +20,7 @@ export function Party() {
     });
   }, []);
 
-  const gridProps = { frames, settings, rect, tick }
+  const gridProps = { settings, rect, tick }
   return (
     <>
       {settings.layout === AnimationLayout.Row && <HorizontalGrid {...gridProps} />}
