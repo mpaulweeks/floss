@@ -1,16 +1,16 @@
 import styles from '@/styles/Party.module.css';
-import { Settings } from '@/types';
+import { AnimationFrames, Settings } from '@/types';
 
 export function Dancer(props: {
-  frames: string[];
   settings: Settings;
   size: number;
   tick: number;
   offset: number;
   moreClassNames: string[]
 }) {
+  const frames = AnimationFrames[props.settings.dance];
   const localTick = props.tick + props.offset;
-  const thisFrame = props.frames[localTick % props.frames.length];
+  const thisFrame = frames[localTick % frames.length];
 
   const moveSpeed = 5 / props.settings.moveSpeed;
 
