@@ -39,6 +39,12 @@ export function Overlay(props: {
       <div>
         <button onClick={() => props.setSettings(s => ({
           ...s,
+          layout: AnimationLayout.Still
+        }))}>
+          still
+        </button>
+        <button onClick={() => props.setSettings(s => ({
+          ...s,
           layout: AnimationLayout.Row
         }))}>
           row

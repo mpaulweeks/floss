@@ -4,6 +4,7 @@ import { HorizontalGrid } from "./HorizontalGrid";
 import { useTimer } from "@/hooks/useTimer";
 import { VerticalGrid } from "./VerticalGrid";
 import { TwirlGrid } from "./TwirlGrid";
+import { StillGrid } from "./StillGrid";
 
 export function Party(props: {
   element: HTMLElement;
@@ -25,6 +26,7 @@ export function Party(props: {
   const gridProps = { settings, rect, tick }
   return (
     <>
+      {settings.layout === AnimationLayout.Still && <StillGrid {...gridProps} />}
       {settings.layout === AnimationLayout.Row && <HorizontalGrid {...gridProps} />}
       {settings.layout === AnimationLayout.Column && <VerticalGrid {...gridProps} />}
       {settings.layout === AnimationLayout.Twirl && <TwirlGrid {...gridProps} />}
