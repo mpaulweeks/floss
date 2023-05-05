@@ -17,4 +17,20 @@
   background-color: white;
   border-radius: 2em;
   padding: 1em 4em;
+
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.5em;
+}
+
+.instructions button {
+  cursor: pointer;
+  font-size: 1.5em;
+  padding: 0.5em 1em;
+  border: 1px solid black;
+  border-radius: 0.5em;
 }
