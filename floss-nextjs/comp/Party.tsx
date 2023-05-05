@@ -1,4 +1,4 @@
-import { AnimationLayout, Rect, Settings, defaultSettings } from "@/types";
+import { AnimationLayout, Rect, Settings } from "@/types";
 import { useEffect, useState } from "react";
 import { HorizontalGrid } from "./HorizontalGrid";
 import { useTimer } from "@/hooks/useTimer";
@@ -6,20 +6,21 @@ import { VerticalGrid } from "./VerticalGrid";
 import { TwirlGrid } from "./TwirlGrid";
 
 export function Party(props: {
+  element: HTMLElement;
   settings: Settings;
 }) {
-  const { settings } = props;
+  const { element, settings } = props;
   const [rect, setRect] = useState<Rect>({ width: 800, height: 600, });
   const { tick } = useTimer({ settings, });
 
   // on load
   useEffect(() => {
     // rect
-    setRect(document.body.getBoundingClientRect());
+    setRect(element.getBoundingClientRect());
     window.addEventListener('resize', () => {
-      setRect(document.body.getBoundingClientRect());
+      setRect(element.getBoundingClientRect());
     });
-  }, []);
+  }, [element]);
 
   const gridProps = { settings, rect, tick }
   return (

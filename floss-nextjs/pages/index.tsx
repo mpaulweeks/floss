@@ -1,10 +1,10 @@
 import Head from 'next/head'
-import { Party } from '@/comp/Party'
 import { useEffect, useState } from 'react'
 import { Splash } from '@/comp/Splash'
 import { Settings, defaultSettings } from '@/types';
 import { Overlay } from '@/comp/Overlay';
 import rainbowStyles from '@/styles/Rainbow.module.css';
+import { Fullscreen } from '@/comp/Fullscreen';
 
 export default function Home() {
   const [settings, setSettings] = useState<Settings>(defaultSettings());
@@ -26,7 +26,7 @@ export default function Home() {
       </Head>
       <main className={rainbowStyles.rainbow}>
         {confirmed ? (
-          <Party settings={settings} />
+          <Fullscreen settings={settings} />
         ) : (
           <Splash settings={settings} onConfirm={() => setConfirmed(true)} />
         )}

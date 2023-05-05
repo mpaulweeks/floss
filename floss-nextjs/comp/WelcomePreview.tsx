@@ -1,17 +1,27 @@
-import { useTimer } from "@/hooks/useTimer";
 import { Settings } from "@/types";
-import { Dancer } from "./Dancer";
+import { useEffect, useRef, useState } from "react";
+import { Party } from "./Party";
 
 export function WelcomePreview(props: {
   settings: Settings;
 }) {
-  const { tick } = useTimer(props);
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [element, setElement] = useState<HTMLElement>();
 
-  return <Dancer
-    settings={props.settings}
-    size={300}
-    tick={tick}
-    offset={0}
-    moreClassNames={[]}
-  />;
+  useEffect(() => {
+    if (elementRef.current) {
+      setElement(elementRef.current);
+    }
+  }, [setElement]);
+
+  return (
+    <div ref={elementRef} style={{
+      width: '300px',
+      height: '300px',
+    }}>
+      {element && (
+        <Party element={element} settings={props.settings} />
+      )}
+    </div>
+  );
 }
