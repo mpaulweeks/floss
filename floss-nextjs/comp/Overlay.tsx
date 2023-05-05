@@ -1,14 +1,27 @@
-import { AnimationDance, AnimationLayout, Settings, defaultSettings } from "@/types";
-import { Dispatch, SetStateAction, useRef } from "react";
-import styles from '@/styles/Party.module.css';
+import { AnimationDance, AnimationLayout, AudioSrc, Settings, defaultSettings } from "@/types";
+import { Dispatch, SetStateAction } from "react";
+import styles from '@/styles/Overlay.module.css';
 import hoverStyles from '@/styles/Hover.module.css';
+import { useAudio } from "@/hooks/useAudio";
 
 export function Overlay(props: {
   settings: Settings;
   setSettings: Dispatch<SetStateAction<Settings>>;
 }) {
+  const audioSrc = AudioSrc.Vengaboys;
+  const { isPlaying, play, stop, } = useAudio();
+  const onAudioClick = () => isPlaying
+    ? stop()
+    : play(audioSrc);
+
   return (
     <section className={[styles.overlay, hoverStyles.hover].join(' ')}>
+      <div>
+        {'audio: '}
+        <button onClick={onAudioClick}>
+          {isPlaying ? 'ON' : 'OFF'}
+      </button>
+      </div>
       <div>
         <button onClick={() => props.setSettings(s => ({
           ...s,

@@ -5,7 +5,6 @@ import { HorizontalGrid } from "./HorizontalGrid";
 import { useTimer } from "@/hooks/useTimer";
 import { VerticalGrid } from "./VerticalGrid";
 import { TwirlGrid } from "./TwirlGrid";
-import { AudioOverlay } from "./AudioOverlay";
 
 export function Party() {
   const [settings, setSettings] = useState<Settings>(defaultSettings());
@@ -27,7 +26,6 @@ export function Party() {
       {settings.layout === AnimationLayout.Row && <HorizontalGrid {...gridProps} />}
       {settings.layout === AnimationLayout.Column && <VerticalGrid {...gridProps} />}
       {settings.layout === AnimationLayout.Twirl && <TwirlGrid {...gridProps} />}
-      <AudioOverlay />
       <Overlay settings={settings} setSettings={setSettings} />
     </>
   )

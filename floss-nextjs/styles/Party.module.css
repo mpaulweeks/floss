@@ -17,6 +17,7 @@
 }
 
 .party {
+  cursor: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -30,21 +31,6 @@
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-}
-
-.audio {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: white;
-  width: 100px;
-  height: 100px;
-}
-.overlay {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: white;
 }
 
 .dancer {

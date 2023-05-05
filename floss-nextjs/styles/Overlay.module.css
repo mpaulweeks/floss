@@ -1,0 +1,11 @@
+.overlay {
+  cursor: initial;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  padding: 2em;
+  border-radius: 1em 0em 0em 0em;
+  color: white;
+  background-color: black;
+}
