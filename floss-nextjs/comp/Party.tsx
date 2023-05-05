@@ -2,7 +2,7 @@ import { AnimationLayout, Rect, Settings, defaultSettings } from "@/types";
 import { useEffect, useState } from "react";
 import { Overlay } from "./Overlay";
 import { HorizontalGrid } from "./HorizontalGrid";
-import { useTimer } from "../hooks/useTimer";
+import { useTimer } from "@/hooks/useTimer";
 import { VerticalGrid } from "./VerticalGrid";
 import { TwirlGrid } from "./TwirlGrid";
 
