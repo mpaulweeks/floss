@@ -1,27 +1,17 @@
 import { Settings } from "@/types";
-import { useEffect, useRef, useState } from "react";
 import { Party } from "./Party";
+import { useElementRef } from "@/hooks/useElementRef";
 
 export function WelcomePreview(props: {
   settings: Settings;
 }) {
-  const elementRef = useRef<HTMLDivElement>(null);
-  const [element, setElement] = useState<HTMLElement>();
-
-  useEffect(() => {
-    if (elementRef.current) {
-      setElement(elementRef.current);
-    }
-  }, [setElement]);
-
+  const { element, ref } = useElementRef();
   return (
-    <div ref={elementRef} style={{
+    <div ref={ref} style={{
       width: '300px',
       height: '300px',
     }}>
-      {element && (
-        <Party element={element} settings={props.settings} />
-      )}
+      {element && <Party element={element} settings={props.settings} /> }
     </div>
   );
 }

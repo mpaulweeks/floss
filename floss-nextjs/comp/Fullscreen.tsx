@@ -1,23 +1,15 @@
-import styles from '@/styles/Party.module.css';
+import styles from '@/styles/Fullscreen.module.css';
 import rainbowStyles from '@/styles/Rainbow.module.css';
 import { Settings } from '@/types';
 import { Party } from './Party';
-import { useEffect, useRef, useState } from 'react';
+import { useElementRef } from '@/hooks/useElementRef';
 
 export function Fullscreen(props: {
   settings: Settings;
 }) {
-  const elementRef = useRef<HTMLDivElement>(null);
-  const [element, setElement] = useState<HTMLElement>();
-
-  useEffect(() => {
-    if (elementRef.current) {
-      setElement(elementRef.current);
-    }
-  }, [setElement]);
-
+  const { element, ref } = useElementRef();
   return (
-    <div ref={elementRef} className={[styles.fullscreen, rainbowStyles.rainbow].join(' ')}>
+    <div ref={ref} className={[styles.fullscreen, rainbowStyles.rainbow].join(' ')}>
       {element && <Party element={element} settings={props.settings} />}
     </div>
   )
