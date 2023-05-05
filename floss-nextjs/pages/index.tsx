@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Splash } from '@/comp/Splash'
 import { Settings, defaultSettings } from '@/types';
 import { Overlay } from '@/comp/Overlay';
+import rainbowStyles from '@/styles/Rainbow.module.css';
 
 export default function Home() {
   const [settings, setSettings] = useState<Settings>(defaultSettings());
@@ -23,7 +24,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={rainbowStyles.rainbow}>
         {confirmed ? (
           <Party settings={settings} />
         ) : (

@@ -1,13 +1,17 @@
 import styles from '@/styles/Splash.module.css';
 import { WelcomePreview } from './WelcomePreview';
 import { Settings } from '@/types';
+import { useState } from 'react';
+import rainbowStyles from '@/styles/Rainbow.module.css';
 
 export function Splash(props: {
   settings: Settings;
   onConfirm(): void;
 }) {
+  const [play, setPlay] = useState(false);
+
   return (
-    <div className={styles.welcome}>
+    <div className={[styles.welcome, rainbowStyles.rainbow].join(' ')}>
       <main className={styles.instructions}>
         <div>
           <WelcomePreview settings={props.settings} />
@@ -15,19 +19,16 @@ export function Splash(props: {
         <div>
           hover your mouse in the bottom right corner for options
         </div>
-        <div>
+        {/* <div>
           play music?
-          <label id="toggleMusic" className={styles.switch}>
-            <input id="musicCheckbox" type="checkbox" />
-            <span className={[styles.slider, styles.round].join(' ')}></span>
-          </label>
-        </div>
+          <Slider checked={play} onClick={checked => setPlay(checked)} />
+        </div> */}
         <div>
-          <button onClick={props.onConfirm}>
+          <button className={rainbowStyles.hoverbow} onClick={props.onConfirm}>
             LET THE PARTY BEGIN
           </button>
         </div>
-        <div>
+        <div style={{ fontStyle: 'italic', }}>
           <div>
             {' a silly thing made by '}
             <a href="https://twitter.com/mpaulweeks">@mpaulweeks</a>
