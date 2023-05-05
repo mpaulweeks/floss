@@ -34,3 +34,7 @@ export const defaultSettings = (): Settings => ({
   layout: AnimationLayout.Row,
   dance: AnimationDance.Floss,
 });
+
+export enum AudioSrc {
+  Vengaboys = 'party.mp3',
+};

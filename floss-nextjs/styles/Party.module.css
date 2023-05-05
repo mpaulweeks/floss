@@ -32,15 +32,19 @@
   flex-wrap: nowrap;
 }
 
+.audio {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  width: 100px;
+  height: 100px;
+}
 .overlay {
   position: absolute;
-  right: 0;
   bottom: 0;
-
-  transition-property: opacity;
-  transition-duration: 1s;
-  transition-delay: 0s;
-  transition-timing-function: ease-in-out;
+  right: 0;
+  background-color: white;
 }
 
 .dancer {
