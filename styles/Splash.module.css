@@ -36,3 +36,9 @@
   color: black;
   background-color: #ddd;
 }
+
+@media (max-width: 600px) {
+  .instructions {
+    flex: 1;
+  }
+}

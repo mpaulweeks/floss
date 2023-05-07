@@ -13,8 +13,11 @@ export function Splash(props: {
         <div>
           <WelcomePreview settings={props.settings} />
         </div>
-        <div>
+        <div className="desktop">
           move your mouse to the right for options
+        </div>
+        <div className="mobile">
+          tap the screen for options
         </div>
         <div>
           <button className={rainbowStyles.hoverbow} onClick={props.onConfirm}>
