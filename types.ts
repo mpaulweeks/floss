@@ -17,8 +17,8 @@ export enum AnimationDance {
   Shuffle,
 }
 export const AnimationFrames = {
-  [AnimationDance.Floss]: range(6).map(n => `/frames/a${n}.png`),
-  [AnimationDance.Shuffle]: range(2).map(n => `/frames/s${n}.png`),
+  [AnimationDance.Floss]: range(6).map(n => `/assets/frames/a${n}.png`),
+  [AnimationDance.Shuffle]: range(2).map(n => `/assets/frames/s${n}.png`),
 }
 
 export type Settings = {
@@ -37,7 +37,7 @@ export const defaultSettings = (): Settings => ({
 });
 
 export enum AudioSrc {
-  Vengaboys = 'party.mp3',
+  Vengaboys = 'assets/party.mp3',
 };
 
 export type SettingsOption = {
