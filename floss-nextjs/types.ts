@@ -46,5 +46,5 @@ export type SettingsOption = {
 }
 export type SettingsRowData = {
   label?: JSX.Element | string;
-  opts: SettingsOption[];
+  opts: SettingsOption[][];
 }

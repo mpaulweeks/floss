@@ -42,3 +42,35 @@
   transform: none;
   transition-delay: 0s;
 }
+.overlayInner button {
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 1em;
+  padding: 0.2em 1em;
+  color: white;
+  background-color: black;
+}
+
+.gap {
+  width: 80%;
+  margin: 1em;
+  border-top: 1px solid white;
+}
+.row {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.rowLabel {
+  font-size: 1.5em;
+}
+.rowButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}

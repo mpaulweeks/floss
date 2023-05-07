@@ -1,5 +1,6 @@
 import { Settings, SettingsRowData } from "@/types";
 import { Dispatch, SetStateAction } from "react";
+import styles from '@/styles/Overlay.module.css';
 
 export function SettingsRow(props: {
   settings: Settings;
@@ -7,19 +8,28 @@ export function SettingsRow(props: {
   data: SettingsRowData;
 }) {
   return (
-    <div>
-      {props.data.label}
-      {props.data.opts.map((opt, oi) => (
-        <button
-          key={oi}
-          onClick={() => props.setSettings(s => ({
-            ...s,
-            ...opt.onClick(s),
-          }))}
+    <section className={styles.row}>
+      <div className={styles.rowLabel}>
+        {props.data.label}
+      </div>
+      {props.data.opts.map((row, ri) => (
+        <div
+          key={ri}
+          className={styles.rowButtons}
         >
-          {opt.label}
-        </button>
+          {row.map((opt, oi) => (
+            <button
+              key={oi}
+              onClick={() => props.setSettings(s => ({
+                ...s,
+                ...opt.onClick(s),
+              }))}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       ))}
-    </div>
+    </section>
   );
 }

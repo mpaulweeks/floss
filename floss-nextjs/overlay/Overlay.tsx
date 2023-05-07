@@ -1,4 +1,4 @@
-import { AnimationDance, AnimationLayout, AudioSrc, Settings, SettingsRowData, defaultSettings } from "@/types";
+import { AudioSrc, Settings } from "@/types";
 import { Dispatch, SetStateAction } from "react";
 import styles from '@/styles/Overlay.module.css';
 import { useAudio } from "@/hooks/useAudio";
@@ -19,18 +19,25 @@ export function Overlay(props: {
   return (
     <aside className={styles.overlayOuter}>
       <section className={styles.overlayInner}>
-        <div>
-          {'audio: '}
-          <button onClick={onAudioClick}>
-            {isPlaying ? 'ON' : 'OFF'}
-          </button>
-        </div>
+        <section className={styles.row}>
+          <div className={styles.rowLabel}>
+            audio
+          </div>
+          <div className={styles.rowButtons}>
+            <button onClick={onAudioClick}>
+              {isPlaying ? 'ON' : 'OFF'}
+            </button>
+          </div>
+        </section>
         {rows.map((row, ri) => (
-          <SettingsRow
-            key={ri}
-            {...props}
-            data={row}
-          />
+          <>
+            <div className={styles.gap}></div>
+            <SettingsRow
+              key={ri}
+              {...props}
+              data={row}
+            />
+          </>
         ))}
       </section>
     </aside>
