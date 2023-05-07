@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { Splash } from '@/comp/Splash'
 import { Settings, defaultSettings } from '@/types';
-import { Overlay } from '@/comp/Overlay';
+import { Overlay } from '@/overlay/Overlay';
 import rainbowStyles from '@/styles/Rainbow.module.css';
 import { Fullscreen } from '@/comp/Fullscreen';
 
