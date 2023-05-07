@@ -39,3 +39,12 @@ export const defaultSettings = (): Settings => ({
 export enum AudioSrc {
   Vengaboys = 'party.mp3',
 };
+
+export type SettingsOption = {
+  label: JSX.Element | string;
+  onClick: (s: Settings) => Partial<Settings>;
+}
+export type SettingsRowData = {
+  label?: JSX.Element | string;
+  opts: SettingsOption[];
+}
