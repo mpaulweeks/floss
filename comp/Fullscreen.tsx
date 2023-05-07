@@ -1,7 +1,7 @@
 import styles from '@/styles/Fullscreen.module.css';
 import rainbowStyles from '@/styles/Rainbow.module.css';
 import { Settings } from '@/types';
-import { Party } from './Party';
+import { Party } from './party/Party';
 import { useElementRef } from '@/hooks/useElementRef';
 
 export function Fullscreen(props: {

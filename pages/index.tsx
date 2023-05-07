@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { Splash } from '@/comp/Splash'
 import { Settings, defaultSettings } from '@/types';
-import { Overlay } from '@/overlay/Overlay';
+import { Overlay } from '@/comp/overlay/Overlay';
 import rainbowStyles from '@/styles/Rainbow.module.css';
 import { Fullscreen } from '@/comp/Fullscreen';
 
@@ -20,6 +20,7 @@ export default function Home() {
     <>
       <Head>
         <title>Floss</title>
+        <link rel="shortcut icon"       href="favicon.png" />
         <meta name="viewport"           content="width=device-width, initial-scale=1" />
         <meta property="og:url"         content="https://floss.mpaulweeks.com" />
         <meta property="og:type"        content="video.other" />

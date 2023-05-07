@@ -1,5 +1,5 @@
 import { Settings } from "@/types";
-import { Party } from "./Party";
+import { Party } from "./party/Party";
 import { useElementRef } from "@/hooks/useElementRef";
 
 export function WelcomePreview(props: {
