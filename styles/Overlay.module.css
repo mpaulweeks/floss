@@ -11,6 +11,7 @@
   flex-direction: column;
   justify-content: stretch;
   align-items: center;
+  overflow: hidden;
 
   /* border: 1px solid black; */
 }
