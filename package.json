@@ -1,7 +1,5 @@
 {
   "name": "floss",
-  "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +7,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
     "@types/node": "18.16.3",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "next": "13.3.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "typescript": "5.0.4"
   }
 }
