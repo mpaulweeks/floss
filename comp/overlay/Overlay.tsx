@@ -20,34 +20,32 @@ export function Overlay(props: {
   const rows = OverlaySettingsRows(props.settings);
 
   const classNames = [
-    styles.overlayOuter,
+    styles.overlay,
     (props.visible ? styles.visible : styles.hidden),
   ].join(' ');
 
   return (
-    <div className={classNames} onClick={() => props.setVisible(v => !v)}>
-      <aside className={styles.overlayInner} onClick={() => {}}>
-        <section className={styles.row}>
-          <div className={styles.rowLabel}>
-            audio
-          </div>
-          <div className={styles.rowButtons}>
-            <button onClick={onAudioClick}>
-              {isPlaying ? 'ON' : 'OFF'}
-            </button>
-          </div>
-        </section>
-        {rows.map((row, ri) => (
-          <div key={ri}>
-            <div className={styles.gap}></div>
-            <SettingsRow
-              key={ri}
-              {...props}
-              data={row}
-            />
-          </div>
-        ))}
-      </aside>
-    </div>
+    <aside className={classNames}>
+      <section className={styles.row}>
+        <div className={styles.rowLabel}>
+          audio
+        </div>
+        <div className={styles.rowButtons}>
+          <button onClick={onAudioClick}>
+            {isPlaying ? 'ON' : 'OFF'}
+          </button>
+        </div>
+      </section>
+      {rows.map((row, ri) => (
+        <div key={ri}>
+          <div className={styles.gap}></div>
+          <SettingsRow
+            key={ri}
+            {...props}
+            data={row}
+          />
+        </div>
+      ))}
+    </aside>
   );
 }

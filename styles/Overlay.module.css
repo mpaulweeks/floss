@@ -1,47 +1,34 @@
-.overlayOuter {
+.overlay {
   position: absolute;
-
   top: 0;
   right: 0;
-
   width: auto;
   height: 100%;
 
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
-  align-items: center;
-  overflow: hidden;
-
-  transform: translateX(100%);
-  transition-property: transform;
-  transition-duration: 0.5s;
-  transition-delay: 0s;
-  transition-timing-function: ease-out;
-
-  /* border: 1px solid black; */
-}
-
-.overlayInner {
-  cursor: initial;
-
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  cursor: initial;
   padding: 2em;
   border-radius: 1em 0em 0em 1em;
   color: white;
   background-color: rgba(0, 0, 0, 0.9);
+
+  transition-property: transform;
+  transition-duration: 0.5s;
+  transition-delay: 0s;
+  transition-timing-function: ease-out;
+}
+.overlay.visible {
+  transform: none;
+}
+.overlay.hidden {
+  transform: translateX(100%);
 }
 
-.visible {
-  transform: none;
-  transition-delay: 0s;
-}
-.overlayInner button {
+.overlay button {
   cursor: pointer;
   border: 2px solid white;
   border-radius: 1em;
