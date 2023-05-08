@@ -5,11 +5,18 @@ import rainbowStyles from '@/styles/Rainbow.module.css';
 
 export function Splash(props: {
   settings: Settings;
+  onClickRainbow(): void;
   onConfirm(): void;
 }) {
   return (
-    <div className={[styles.welcome, rainbowStyles.rainbow].join(' ')}>
-      <main className={styles.instructions}>
+    <div
+      className={[styles.welcome, rainbowStyles.rainbow].join(' ')}
+      onClick={props.onClickRainbow}
+    >
+      <main
+        className={styles.instructions}
+        onClick={e => e.stopPropagation()}
+      >
         <div>
           <WelcomePreview settings={props.settings} />
         </div>

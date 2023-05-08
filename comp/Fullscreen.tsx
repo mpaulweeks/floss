@@ -6,10 +6,15 @@ import { useElementRef } from '@/hooks/useElementRef';
 
 export function Fullscreen(props: {
   settings: Settings;
+  onClickRainbow(): void;
 }) {
   const { element, ref } = useElementRef();
   return (
-    <div ref={ref} className={[styles.fullscreen, rainbowStyles.rainbow].join(' ')}>
+    <div
+      ref={ref}
+      className={[styles.fullscreen, rainbowStyles.rainbow].join(' ')}
+      onClick={props.onClickRainbow}
+    >
       {element && <Party element={element} settings={props.settings} />}
     </div>
   )

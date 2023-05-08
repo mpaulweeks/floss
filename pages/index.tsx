@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Splash } from '@/comp/Splash'
 import { Settings, defaultSettings } from '@/types';
 import { Overlay } from '@/comp/overlay/Overlay';
@@ -8,6 +8,7 @@ import { Fullscreen } from '@/comp/Fullscreen';
 
 export default function Home() {
   const [settings, setSettings] = useState<Settings>(defaultSettings());
+  const [showOverlay, setShowOverlay] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
   useEffect(() => {
@@ -15,6 +16,10 @@ export default function Home() {
       setConfirmed(true);
     }
   }, [setConfirmed]);
+
+  const toggleOverlay = useCallback(() => {
+    setShowOverlay(v => !v);
+  }, [setShowOverlay]);
 
   return (
     <>
@@ -30,11 +35,21 @@ export default function Home() {
       </Head>
       <main className={rainbowStyles.rainbow}>
         {confirmed ? (
-          <Fullscreen settings={settings} />
+          <Fullscreen
+            settings={settings}
+            onClickRainbow={toggleOverlay}
+          />
         ) : (
-          <Splash settings={settings} onConfirm={() => setConfirmed(true)} />
+          <Splash
+            settings={settings}
+            onClickRainbow={toggleOverlay}
+            onConfirm={() => setConfirmed(true)}
+          />
         )}
-        <Overlay settings={settings} setSettings={setSettings} />
+        <Overlay
+          visible={showOverlay} setVisible={setShowOverlay}
+          settings={settings} setSettings={setSettings}
+        />
       </main>
     </>
   )
