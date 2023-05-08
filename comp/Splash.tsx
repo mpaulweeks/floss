@@ -2,33 +2,28 @@ import styles from '@/styles/Splash.module.css';
 import { WelcomePreview } from './WelcomePreview';
 import { Settings } from '@/types';
 import rainbowStyles from '@/styles/Rainbow.module.css';
+import { Dispatch, SetStateAction } from 'react';
 
 export function Splash(props: {
   settings: Settings;
-  onClickRainbow(): void;
+  setShowOverlay: Dispatch<SetStateAction<boolean>>;
   onConfirm(): void;
 }) {
   return (
-    <div
-      className={[styles.welcome, rainbowStyles.rainbow].join(' ')}
-      onClick={props.onClickRainbow}
-    >
-      <main
-        className={styles.instructions}
-        onClick={e => e.stopPropagation()}
-      >
-        <div>
+    <div className={[styles.welcome, rainbowStyles.rainbow].join(' ')} onClick={() => props.setShowOverlay(false)}>
+      <main className={styles.instructions}>
+        <div onClick={e => { e.stopPropagation(); props.setShowOverlay(b => !b); }}>
           <WelcomePreview settings={props.settings} />
         </div>
         <div className="desktop">
-          move your mouse to the right for options
+          click the man for options
         </div>
         <div className="mobile">
-          tap the screen for options
+          tap the man for options
         </div>
         <div>
           <button className={rainbowStyles.hoverbow} onClick={props.onConfirm}>
-            LET THE PARTY BEGIN
+            PARTY TIME
           </button>
         </div>
         <div style={{ fontStyle: 'italic', }}>

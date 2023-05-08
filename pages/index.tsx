@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Splash } from '@/comp/Splash'
 import { Settings, defaultSettings } from '@/types';
 import { Overlay } from '@/comp/overlay/Overlay';
@@ -17,10 +17,6 @@ export default function Home() {
     }
   }, [setConfirmed]);
 
-  const toggleOverlay = useCallback(() => {
-    setShowOverlay(v => !v);
-  }, [setShowOverlay]);
-
   return (
     <>
       <Head>
@@ -37,12 +33,12 @@ export default function Home() {
         {confirmed ? (
           <Fullscreen
             settings={settings}
-            onClickRainbow={toggleOverlay}
+            setShowOverlay={setShowOverlay}
           />
         ) : (
           <Splash
             settings={settings}
-            onClickRainbow={toggleOverlay}
+            setShowOverlay={setShowOverlay}
             onConfirm={() => setConfirmed(true)}
           />
         )}
