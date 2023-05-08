@@ -28,7 +28,7 @@ export function Overlay(props: {
     <aside className={classNames}>
       <section className={styles.row}>
         <div className={styles.rowLabel}>
-          audio
+          music
         </div>
         <div className={styles.rowButtons}>
           <button onClick={onAudioClick}>

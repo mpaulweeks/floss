@@ -25,10 +25,10 @@ export function OverlaySettingsRows(settings: Settings): SettingsRowData[] {
       label: 'still',
       onClick: () => ({ layout: AnimationLayout.Still, }),
     }, {
-      label: 'row',
+      label: 'hori',
       onClick: () => ({ layout: AnimationLayout.Row, }),
     }, {
-      label: 'col',
+      label: 'vert',
       onClick: () => ({ layout: AnimationLayout.Column, }),
     }, {
       label: 'twirl',
